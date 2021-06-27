@@ -7,7 +7,7 @@ import random
 bot = commands.Bot(command_prefix='!')
 
 #url links
-protect_url = "https://www.amazon.com/Trojan-BARESKIN-Condoms-specially-designed/dp/B008UYN4QA/ref=sr_1_2?dchild=1&keywords=condom&qid=1621456735&sr=8-2"
+protect_url = "https://www.amazon.com/Trojan-BARESKIN-Condoms-specially-designed/dp/B097YLRH21/ref=sr_1_2?dchild=1&keywords=condom&qid=1621456735&sr=8-2&th=1"
 rtx1a = "https://www.amazon.com/MSI-GeForce-RTX-3060-12G/dp/B08WPRMVWB/ref=mp_s_a_1_3?dchild=1&keywords=rtx+3060&qid=1621534999&sr=8-3"
 rtx2a = "https://www.amazon.com/ASUS-Graphics-DisplayPort-Military-Grade-Certification/dp/B08WHJPBFX/ref=mp_s_a_1_9?dchild=1&keywords=rtx+3060&qid=1621535552&sr=8-9"
 rtx1n = "https://www.newegg.com/evga-geforce-rtx-3060-12g-p5-3657-kr/p/N82E16814487539?Description=rtx3060&cm_re=rtx3060-_-14-487-539-_-Product"
@@ -63,7 +63,8 @@ async def arigato(ctx):
 class checkBot():
     def __init__(self):
         options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
+        #options.add_argument('--headless')
+
         self.driver = webdriver.Chrome(chrome_options = options)
 
     #checking for amazon links
