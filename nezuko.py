@@ -1,8 +1,10 @@
 from selenium import webdriver
-from time import sleep
+from asyncio import sleep
 import discord
 from discord.ext import commands
 import random
+import nacl
+
 
 bot = commands.Bot(command_prefix='!')
 
@@ -58,6 +60,36 @@ async def joke(ctx):
 async def arigato(ctx):
     await ctx.send("nya")
 
+#bot joins voice channel to greet user
+class greet(commands.Cog):
+    def __init__(self, client):
+        self.bot = client
+
+
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+    #replace this with the path to your audio file
+        path = "assets\ohayo.mp3"
+
+        vc_before = before.channel
+        vc_after = after.channel
+    
+        if vc_before == vc_after:
+            return
+        if vc_before is None:
+            channel = member.voice.channel
+            vc = await channel.connect()
+            vc.play(discord.FFmpegPCMAudio(path))
+            await sleep(3.6)
+            await vc.disconnect()
+        elif vc_after is None:
+            return
+        else:
+            channel = member.voice.channel
+            vc = await channel.connect()
+            vc.play(discord.FFmpegPCMAudio(path))
+            await sleep(3.6)
+            await vc.disconnect()
 
 #Where the magic happens
 class checkBot():
@@ -104,4 +136,5 @@ class checkBot():
 if __name__ == '__main__':
     #run the discord bot
     print("Now running the Nezuko bot")
+    bot.add_cog(greet(bot))
     bot.run('ODQ0MzM4MTEwMDM5ODUxMDU4.YKQ9JA.7HGf0o9GkWpBcm1zEMRFHxsUbmI')
