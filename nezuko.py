@@ -64,7 +64,7 @@ async def arigato(ctx):
 class greet(commands.Cog):
     def __init__(self, client):
         self.bot = client
-        
+
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         path = "assets\ohayo.mp3"
@@ -93,7 +93,7 @@ class greet(commands.Cog):
 class checkBot():
     def __init__(self):
         options = webdriver.ChromeOptions()
-        #options.add_argument('--headless')
+        options.add_argument('--headless')
 
         self.driver = webdriver.Chrome(chrome_options = options)
 
