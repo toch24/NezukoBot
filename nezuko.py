@@ -64,11 +64,9 @@ async def arigato(ctx):
 class greet(commands.Cog):
     def __init__(self, client):
         self.bot = client
-
-
+        
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-    #replace this with the path to your audio file
         path = "assets\ohayo.mp3"
 
         vc_before = before.channel
