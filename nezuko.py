@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import random
 import nacl
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 bot = commands.Bot(command_prefix='!')

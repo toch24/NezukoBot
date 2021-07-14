@@ -2,3 +2,4 @@ Selenium
 pyNacl
 asyncio
 discord
+webdriver-manager
