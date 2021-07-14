@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 bot = commands.Bot(command_prefix='!')
 
 #url links
-protect_url = "https://www.amazon.com/Trojan-BARESKIN-Condoms-specially-designed/dp/B097YLRH21/ref=sr_1_2?dchild=1&keywords=condom&qid=1621456735&sr=8-2&th=1"
+protect_url = "https://www.amazon.com/LifeStyles-SKYN-Elite-Condoms/dp/B0735Q681B/ref=sr_1_1?dchild=1&keywords=condom&qid=1626242452&rdc=1&sr=8-1"
 rtx1a = "https://www.amazon.com/MSI-GeForce-RTX-3060-12G/dp/B08WPRMVWB/ref=mp_s_a_1_3?dchild=1&keywords=rtx+3060&qid=1621534999&sr=8-3"
 rtx2a = "https://www.amazon.com/ASUS-Graphics-DisplayPort-Military-Grade-Certification/dp/B08WHJPBFX/ref=mp_s_a_1_9?dchild=1&keywords=rtx+3060&qid=1621535552&sr=8-9"
 rtx1n = "https://www.newegg.com/evga-geforce-rtx-3060-12g-p5-3657-kr/p/N82E16814487539?Description=rtx3060&cm_re=rtx3060-_-14-487-539-_-Product"
@@ -95,8 +95,10 @@ class checkBot():
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument("disable-dev-shm-usage")
 
-        self.driver = webdriver.Chrome(chrome_options = options)
+        self.driver = webdriver.Chrome(chrome_options = options, executable_path=ChromeDriverManager().install())
 
     #checking for amazon links
     def amazon(self, urls = []):
@@ -107,11 +109,9 @@ class checkBot():
             try:
                 addCart = self.driver.find_element_by_xpath('//*[@id="add-to-cart-button"]')
                 addCart.click()
-                print("Add to cart button found!")
                 return url
 
             except Exception as e:
-                print("No add to cart button found")
                 if count == len(urls):
                     return " "
 
@@ -124,11 +124,9 @@ class checkBot():
             try:
                 addCart = self.driver.find_element_by_xpath('//*[@class="btn btn-primary btn-wide"]')
                 addCart.click()
-                print("Add to cart button found!")
                 return url
 
             except Exception as e:
-                print("No add to cart button found")
                 if count == len(urls):
                     return " "
 
