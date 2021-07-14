@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import random
 import nacl
+import time
 from webdriver_manager.chrome import ChromeDriverManager
 
 
@@ -94,11 +95,12 @@ class greet(commands.Cog):
 class checkBot():
     def __init__(self):
         options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
         options.add_argument("disable-dev-shm-usage")
 
         self.driver = webdriver.Chrome(chrome_options = options, executable_path=ChromeDriverManager().install())
+        time.sleep(2)
 
     #checking for amazon links
     def amazon(self, urls = []):
@@ -109,12 +111,14 @@ class checkBot():
             try:
                 addCart = self.driver.find_element_by_xpath('//*[@id="add-to-cart-button"]')
                 addCart.click()
-                sleep(5)
                 return url
 
             except Exception as e:
                 if count == len(urls):
                     return " "
+                    
+            finally:
+                self.driver.close()
 
     #checking for newegg links
     def newegg(self, urls = []):
@@ -124,13 +128,15 @@ class checkBot():
             self.driver.get(url)
             try:
                 addCart = self.driver.find_element_by_xpath('//*[@class="btn btn-primary btn-wide"]')
-                if(addCart.click()):
-                    driver.quit()
-                    return url
+                addCart.click()
+                return url
 
             except Exception as e:
                 if count == len(urls):
                     return " "
+
+            finally:
+                self.driver.close()
 
 if __name__ == '__main__':
     #run the discord bot
