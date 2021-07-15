@@ -3,3 +3,4 @@ pyNacl
 asyncio
 discord
 webdriver-manager
+youtube_dl

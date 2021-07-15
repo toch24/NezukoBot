@@ -6,6 +6,8 @@ import random
 import nacl
 import time
 from webdriver_manager.chrome import ChromeDriverManager
+import youtube_dl
+import os
 
 
 bot = commands.Bot(command_prefix='!')
@@ -24,6 +26,15 @@ rtx7n = "https://www.newegg.com/gigabyte-geforce-rtx-3060-gv-n3060eagle-12gd/p/N
 rtx8n = "https://www.newegg.com/asus-geforce-rtx-3060-dual-rtx3060-12g/p/N82E16814126493?Description=rtx3060&cm_re=rtx3060-_-14-126-493-_-Product"
 rtx9n = "https://www.newegg.com/zotac-geforce-rtx-3060-zt-a30600e-10m/p/N82E16814500509?Description=rtx3060&cm_re=rtx3060-_-14-500-509-_-Product"
 rtx10n = "https://www.newegg.com/gigabyte-geforce-rtx-3060-gv-n3060eagle-oc-12gd/p/N82E16814932403?Description=rtx3060&cm_re=rtx3060-_-14-932-403-_-Product"
+
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+}   
 
 #Check links commands
 @bot.command()
@@ -69,7 +80,7 @@ class greet(commands.Cog):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        path = "assets\ohayo.mp3"
+ #       path = "assets\ohayo.mp3"
 
         vc_before = before.channel
         vc_after = after.channel
@@ -79,8 +90,12 @@ class greet(commands.Cog):
         if vc_before is None:
             channel = member.voice.channel
             vc = await channel.connect()
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                file = ydl.extract_info("https://www.youtube.com/watch?v=MTm3CTH6jlk&ab_channel=Pung", download=True)
+                path = str(file['title']) + "-" + str(file['id'] + ".mp3")
             vc.play(discord.FFmpegPCMAudio(path))
             await sleep(3.6)
+            os.remove(path)
             await vc.disconnect()
         elif vc_after is None:
             return
