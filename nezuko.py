@@ -102,8 +102,12 @@ class greet(commands.Cog):
         else:
             channel = member.voice.channel
             vc = await channel.connect()
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                file = ydl.extract_info("https://www.youtube.com/watch?v=MTm3CTH6jlk&ab_channel=Pung", download=True)
+                path = str(file['title']) + "-" + str(file['id'] + ".mp3")
             vc.play(discord.FFmpegPCMAudio(path))
             await sleep(3.6)
+            os.remove(path)
             await vc.disconnect()
 
 #Where the magic happens
