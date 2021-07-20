@@ -158,7 +158,7 @@ class greet(commands.Cog):
             os.remove(path)
             await vc.disconnect()
 
-#Where the magic happens
+#Method class for checking links 
 class checkBot():
     def __init__(self):
         options = webdriver.ChromeOptions()
