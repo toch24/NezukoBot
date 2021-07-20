@@ -126,10 +126,10 @@ class greet(commands.Cog):
             channel = member.voice.channel
             vc = await channel.connect()
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                file = ydl.extract_info("https://www.youtube.com/watch?v=p1WoZLyjtsI&ab_channel=Satori", download=True)
+                file = ydl.extract_info("https://youtu.be/Q1tYucL6qI8", download=True)
                 path = str(file['title']) + "-" + str(file['id'] + ".mp3")
             vc.play(discord.FFmpegPCMAudio(path))
-            await sleep(13.6)
+            await sleep(4)
             os.remove(path)
             await vc.disconnect()
         elif vc_after is None:
@@ -138,10 +138,10 @@ class greet(commands.Cog):
             channel = member.voice.channel
             vc = await channel.connect()
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                file = ydl.extract_info("https://www.youtube.com/watch?v=p1WoZLyjtsI&ab_channel=Satori", download=True)
+                file = ydl.extract_info("https://youtu.be/Q1tYucL6qI8", download=True)
                 path = str(file['title']) + "-" + str(file['id'] + ".mp3")
             vc.play(discord.FFmpegPCMAudio(path))
-            await sleep(13.6)
+            await sleep(4)
             os.remove(path)
             await vc.disconnect()
 
