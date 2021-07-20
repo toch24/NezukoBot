@@ -2,6 +2,7 @@ from selenium import webdriver
 from asyncio import sleep
 import discord
 from discord.ext import commands
+from discord.utils import get
 import random
 import nacl
 import time
@@ -11,6 +12,7 @@ import os
 
 
 bot = commands.Bot(command_prefix='!')
+
 
 #url links
 protect_url = "https://www.amazon.com/LifeStyles-SKYN-Elite-Condoms/dp/B0735Q681B/ref=sr_1_1?dchild=1&keywords=condoms&qid=1626296473&rdc=1&sr=8-1"
@@ -36,6 +38,23 @@ ydl_opts = {
     }],
 }   
 
+#helper
+@bot.command()
+async def info(ctx):
+    await ctx.send(
+
+""" Checking for links commands:
+!rtx3060: checks for Nvidia Geforce RTX 3060 availability in Amazon and Newegg
+!protect: checks for protection availability
+                    
+Roleplaying commands:
+!joke: Nezuko tells you a funny joke
+!arigato: Nezuko has something special to say to you
+                    
+                      
+Additional features:
+- Nezuko joins the voice channel whenever someone joins to greet them""")
+
 #Check links commands
 @bot.command()
 async def rtx3060(ctx):
@@ -60,6 +79,22 @@ async def protect(ctx):
         await ctx.send("Remember to always protect yourself! " + checkurl)
     else:
         await ctx.send("I am stupid sorry")
+    
+
+#role command
+@bot.command(pass_context=True)
+async def assign(ctx, rolename):
+    user = ctx.message.author
+    role = discord.utils.get(user.guild.roles, name=rolename)
+    if role in user.guild.roles:
+        try:
+            await user.add_roles(role)
+            await ctx.send("Role has been added")
+        except Exception as e:
+            await ctx.send("You cannot assign that role")
+    else:
+        await ctx.send("Role does not exist")
+    
     
 
 #Roleplaying commands
