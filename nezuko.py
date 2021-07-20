@@ -89,11 +89,11 @@ async def assign(ctx, rolename):
     if role in user.guild.roles:
         try:
             await user.add_roles(role)
-            await ctx.send("Role has been added")
+            await ctx.send(f"{user.mention}, the role {role.name} has been assigned")
         except Exception as e:
-            await ctx.send("You cannot assign that role")
+            await ctx.send(f"{user.mention}, the role {role.name} cannot be assigned")
     else:
-        await ctx.send("Role does not exist")
+            await ctx.send(f"{user.mention}, the role {role.name} does not exist")
 
 @bot.command(pass_context=True)
 async def unassign(ctx, rolename):
@@ -102,11 +102,11 @@ async def unassign(ctx, rolename):
     if role in user.guild.roles:
         try:
             await user.remove_roles(role)
-            await ctx.send("Role has been removed")
+            await ctx.send(f"{user.mention}, the role {role.name} has been unassigned")
         except Exception as e:
-            await ctx.send("You cannot unassign that role")
+            await ctx.send(f"{user.mention}, the role {role.name} cannot be unassigned")
     else:
-        await ctx.send("Role does not exist")
+            await ctx.send(f"{user.mention}, the role {rolename} does not exist")
     
 
 #Ping latency command
