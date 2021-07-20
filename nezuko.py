@@ -94,6 +94,19 @@ async def assign(ctx, rolename):
             await ctx.send("You cannot assign that role")
     else:
         await ctx.send("Role does not exist")
+
+@bot.command(pass_context=True)
+async def unassign(ctx, rolename):
+    user = ctx.message.author
+    role = discord.utils.get(user.guild.roles, name=rolename)
+    if role in user.guild.roles:
+        try:
+            await user.remove_roles(role)
+            await ctx.send("Role has been removed")
+        except Exception as e:
+            await ctx.send("You cannot unassign that role")
+    else:
+        await ctx.send("Role does not exist")
     
     
 
