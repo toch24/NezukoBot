@@ -108,7 +108,11 @@ async def unassign(ctx, rolename):
     else:
         await ctx.send("Role does not exist")
     
-    
+
+#Ping latency command
+@bot.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! In {round(bot.latency * 1000)}ms')
 
 #Roleplaying commands
 @bot.command()
